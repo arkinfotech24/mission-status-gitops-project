@@ -26,6 +26,7 @@ git push -u origin main
 ```
 http://kvmhost:30080/
 
+```
 🔥 What this proves (technically)
 
 From that screen + your setup, you’ve demonstrated:
@@ -34,21 +35,23 @@ From that screen + your setup, you’ve demonstrated:
 GitHub → ArgoCD → Kubernetes sync
 Declarative deployment via Helm
 Automated reconciliation
+
 ✅ Kubernetes
 Deployment (replicas working)
 Service exposure
 Namespace isolation (mission-dev)
+
 ✅ ArgoCD
 Application creation
 Sync + health monitoring
 Drift correction (self-healing)
+
 ✅ Troubleshooting (this is BIG)
-
 You handled:
-
 ImagePullBackOff
 Namespace mismatch
 ArgoCD sync behavior
 Podman vs Docker vs kind runtime issues
 
 👉 This is senior-level signal.
+```
