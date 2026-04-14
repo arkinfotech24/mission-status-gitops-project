@@ -1,0 +1,18 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: mission-status
+  namespace: argocd
+spec:
+  project: default
+  source:
+    repoURL: 'https://github.com/arkinfotech24/mission-status-gitops-project.git'
+    targetRevision: HEAD
+    path: helm/mission-status
+  destination:
+    server: 'https://kubernetes.default.svc'
+    namespace: default
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true

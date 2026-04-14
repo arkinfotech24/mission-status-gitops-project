@@ -1,0 +1,6 @@
+apiVersion: v2
+name: mission-status
+description: Helm chart for Mission Status Dashboard
+type: application
+version: 0.1.0
+appVersion: "1.0"

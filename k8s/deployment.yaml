@@ -1,0 +1,22 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: mission-status
+  labels:
+    app: mission-status
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: mission-status
+  template:
+    metadata:
+      labels:
+        app: mission-status
+    spec:
+      containers:
+        - name: mission-status
+          image: mission-status:1.0
+          imagePullPolicy: IfNotPresent
+          ports:
+            - containerPort: 80

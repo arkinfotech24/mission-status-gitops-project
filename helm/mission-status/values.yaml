@@ -1,0 +1,12 @@
+replicaCount: 2
+
+image:
+  repository: mission-status
+  tag: "1.0"
+  pullPolicy: IfNotPresent
+
+service:
+  type: NodePort
+  port: 80
+  targetPort: 80
+  nodePort: 30080
