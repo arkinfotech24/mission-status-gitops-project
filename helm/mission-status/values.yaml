@@ -1,7 +1,7 @@
 replicaCount: 2
 
 image:
-  repository: nginx
+  repository: arkinfotech24/mission-status-app
     #repository: mission-status
     #tag: "1.0"
   tag: "alpine"
