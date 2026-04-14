@@ -24,3 +24,4 @@ git branch -M main
 git remote add origin https://github.com/arkinfotech24/mission-status-gitops-project.git
 git push -u origin main
 ```
+http://kvmhost:30080/
