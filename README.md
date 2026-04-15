@@ -10,6 +10,7 @@ A simple DevOps practice project demonstrating:
 
 ## Application
 A static HTML dashboard served by NGINX.
+http://kvmhost:30080
 
 ## Suggested GitHub repository
 https://github.com/arkinfotech24/mission-status-gitops-project
@@ -24,7 +25,6 @@ git branch -M main
 git remote add origin https://github.com/arkinfotech24/mission-status-gitops-project.git
 git push -u origin main
 ```
-http://kvmhost:30080/
 
 ```
 🔥 What this proves (technically)
