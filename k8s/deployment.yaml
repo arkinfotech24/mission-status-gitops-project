@@ -15,8 +15,8 @@ spec:
         app: mission-status
     spec:
       containers:
-        - name: mission-status
-          image: mission-status:1.0
-          imagePullPolicy: IfNotPresent
+        - name: mission-status-container
+          image: arkinfotech24/mission-status-app:v1
+          imagePullPolicy: Always
           ports:
             - containerPort: 80
