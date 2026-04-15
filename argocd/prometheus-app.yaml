@@ -1,14 +1,14 @@
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
-  name: monitoring-grafana
+  name: monitoring-prometheus
   namespace: argocd
 spec:
   project: default
   source:
     repoURL: https://github.com/arkinfotech24/mission-status-gitops-project.git
-    targetRevision: master
-    path: monitoring-stack-gitops/apps/grafana
+    targetRevision: main
+    path: monitoring-stack-gitops/apps/prometheus
     helm:
       valueFiles:
         - values.yaml

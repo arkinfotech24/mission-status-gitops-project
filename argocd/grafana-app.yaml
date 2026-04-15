@@ -7,7 +7,7 @@ spec:
   project: default
   source:
     repoURL: https://github.com/arkinfotech24/mission-status-gitops-project.git
-    targetRevision: master
+    targetRevision: main
     path: monitoring-stack-gitops/apps/grafana
     helm:
       valueFiles:
