@@ -26,7 +26,6 @@ data:
             {
               "expr": "count(kube_pod_info) by (namespace)",
               "legendFormat": "{{`{{namespace}}`}}",
-              #"legendFormat": "{{namespace}}",
               "refId": "A"
             }
           ]
