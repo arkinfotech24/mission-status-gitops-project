@@ -1,41 +1,55 @@
-grafana:
-  adminUser: admin
-  adminPassword: admin123
+service:
+  type: NodePort
+  port: 80
+  targetPort: 9090
+  nodePort: 30061
 
-  service:
-    type: ClusterIP
+serverFiles:
+  alerting_rules.yml:
+    groups:
+      - name: kubernetes-alerts
+        rules:
+          - alert: MissionStatusDeploymentReplicasMismatch
+            expr: kube_deployment_status_replicas_available{namespace="mission-dev",deployment="mission-status"} < kube_deployment_spec_replicas{namespace="mission-dev",deployment="mission-status"}
+            for: 2m
+            labels:
+              severity: critical
+            annotations:
+              summary: "Mission Status replicas mismatch"
+              description: "Available replicas are lower than desired replicas for mission-status in mission-dev."
 
-  persistence:
-    enabled: false
+          - alert: MissionStatusPodCrashLooping
+            expr: increase(kube_pod_container_status_restarts_total{namespace="mission-dev"}[10m]) > 3
+            for: 5m
+            labels:
+              severity: warning
+            annotations:
+              summary: "Mission Status pod restarting frequently"
+              description: "A mission-status pod in mission-dev restarted more than 3 times in 10 minutes."
 
-  datasources:
-    datasources.yaml:
-      apiVersion: 1
-      datasources:
-        - name: Prometheus
-          type: prometheus
-          access: proxy
-          url: http://prometheus-server.monitoring.svc.cluster.local
-          isDefault: true
+          - alert: NodeExporterDown
+            expr: up{job="prometheus-node-exporter"} == 0
+            for: 2m
+            labels:
+              severity: critical
+            annotations:
+              summary: "Node exporter is down"
+              description: "Prometheus cannot scrape node-exporter."
 
-  dashboardProviders:
-    dashboardproviders.yaml:
-      apiVersion: 1
-      providers:
-        - name: default
-          orgId: 1
-          folder: ""
-          type: file
-          disableDeletion: false
-          editable: true
-          options:
-            path: /var/lib/grafana/dashboards/default
+          - alert: HighNodeCPUUsage
+            expr: 100 * (1 - avg by (instance) (rate(node_cpu_seconds_total{mode="idle"}[5m]))) > 85
+            for: 5m
+            labels:
+              severity: warning
+            annotations:
+              summary: "High CPU usage"
+              description: "Node CPU usage is above 85% for more than 5 minutes."
 
-  dashboardsConfigMaps:
-    default: mission-status-dashboard
-
-  sidecar:
-    dashboards:
-      enabled: true
-      label: grafana_dashboard
-      searchNamespace: monitoring
+          - alert: HighNodeMemoryUsage
+            expr: 100 * (1 - (node_memory_MemAvailable_bytes / node_memory_MemTotal_bytes)) > 90
+            for: 5m
+            labels:
+              severity: warning
+            annotations:
+              summary: "High memory usage"
+              description: "Node memory usage is above 90% for more than 5 minutes."
