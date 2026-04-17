@@ -1,7 +1,9 @@
 prometheus:
   server:
     service:
-      type: ClusterIP
+      type: NodePort
+      servicePort: 80
+      nodePort: 30061
     persistentVolume:
       enabled: false
 
@@ -10,9 +12,3 @@ prometheus:
 
   pushgateway:
     enabled: false
-
-  kube-state-metrics:
-    enabled: true
-
-  prometheus-node-exporter:
-    enabled: true
